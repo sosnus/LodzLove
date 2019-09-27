@@ -1,0 +1,22 @@
+Table Sensors {
+SensorId  int
+SensorName  varchar
+SensorPassword  varchar
+SensorDescription  varchar
+}
+
+Table Measurements {
+MeasurementId  int
+MeasurementDate  datetime
+SensorId  int
+TypeId int
+Value  double
+}
+
+Table Types {
+  TypeId int
+  Name varchar
+}
+
+Ref: "Sensors"."SensorId" < "Measurements"."SensorId"
+Ref: "Types"."TypeId" < "Measurements"."TypeId"
