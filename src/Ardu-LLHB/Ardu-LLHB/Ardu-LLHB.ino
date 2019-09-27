@@ -61,14 +61,14 @@ static osjob_t sendjob;
 
 // Schedule TX every this many seconds (might become longer due to duty
 // cycle limitations).
-const unsigned TX_INTERVAL = 60;
+const unsigned TX_INTERVAL = 10;
 
 // Pin mapping
 const lmic_pinmap lmic_pins = {
-    .nss = 6,
+    .nss = 10,
     .rxtx = LMIC_UNUSED_PIN,
     .rst = 5,
-    .dio = {2, 3, 4},
+    .dio = {2, 3, LMIC_UNUSED_PIN},
 };
 
 void onEvent (ev_t ev) {
