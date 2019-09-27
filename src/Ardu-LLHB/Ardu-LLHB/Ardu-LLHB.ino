@@ -36,15 +36,18 @@
 // LoRaWAN NwkSKey, network session key
 // This is the default Semtech key, which is used by the early prototype TTN
 // network.
-static const PROGMEM u1_t NWKSKEY[16] = { 0x2B, 0x7E, 0x15, 0x16, 0x28, 0xAE, 0xD2, 0xA6, 0xAB, 0xF7, 0x15, 0x88, 0x09, 0xCF, 0x4F, 0x3C };
+static const PROGMEM u1_t NWKSKEY[16] = { 0x39, 0xF7, 0x7E, 0xB7, 0x24, 0xC7, 0xEE, 0xB7, 0x80, 0x6B, 0xBF, 0xF2, 0xD2, 0x09, 0x08, 0xD4 };
+//{ 0x2B, 0x7E, 0x15, 0x16, 0x28, 0xAE, 0xD2, 0xA6, 0xAB, 0xF7, 0x15, 0x88, 0x09, 0xCF, 0x4F, 0x3C };
 
 // LoRaWAN AppSKey, application session key
 // This is the default Semtech key, which is used by the early prototype TTN
 // network.
-static const u1_t PROGMEM APPSKEY[16] = { 0x2B, 0x7E, 0x15, 0x16, 0x28, 0xAE, 0xD2, 0xA6, 0xAB, 0xF7, 0x15, 0x88, 0x09, 0xCF, 0x4F, 0x3C };
+static const u1_t PROGMEM APPSKEY[16] = { 0x39, 0x5F, 0x43, 0x2F, 0x8B, 0x54, 0xBB, 0x36, 0xF6, 0xA1, 0x1B, 0x01, 0xFC, 0x75, 0xF5, 0x47 };
+//{ 0x2B, 0x7E, 0x15, 0x16, 0x28, 0xAE, 0xD2, 0xA6, 0xAB, 0xF7, 0x15, 0x88, 0x09, 0xCF, 0x4F, 0x3C };
 
 // LoRaWAN end-device address (DevAddr)
-static const u4_t DEVADDR = 0x03FF0001 ; // <-- Change this address for every node!
+static const u4_t DEVADDR = 0x26011F29;
+//03FF0001 ; // <-- Change this address for every node!
 
 // These callbacks are only used in over-the-air activation, so they are
 // left empty here (we cannot leave them out completely unless
@@ -53,19 +56,19 @@ void os_getArtEui (u1_t* buf) { }
 void os_getDevEui (u1_t* buf) { }
 void os_getDevKey (u1_t* buf) { }
 
-static uint8_t mydata[] = "Hello, world!";
+static uint8_t mydata[] = "Hello, world! LLHB";
 static osjob_t sendjob;
 
 // Schedule TX every this many seconds (might become longer due to duty
 // cycle limitations).
-const unsigned TX_INTERVAL = 60;
+const unsigned TX_INTERVAL = 10;
 
 // Pin mapping
 const lmic_pinmap lmic_pins = {
-    .nss = 6,
+    .nss = 10,
     .rxtx = LMIC_UNUSED_PIN,
     .rst = 5,
-    .dio = {2, 3, 4},
+    .dio = {2, 3, LMIC_UNUSED_PIN},
 };
 
 void onEvent (ev_t ev) {
