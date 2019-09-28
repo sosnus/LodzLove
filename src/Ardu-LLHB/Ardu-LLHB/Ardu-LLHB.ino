@@ -35,7 +35,7 @@
 
 //#include <Adafruit_SSD1306.h>
 
-#define NODE_SERIAL_NUMBER  5
+#define NODE_SERIAL_NUMBER  2
 // #define NODE_SERIAL_NUMBER  5
 // #define NODE_SERIAL_NUMBER  2
 
@@ -55,7 +55,8 @@ CayenneLPP lpp(51);
 //Adafruit_SSD1306 display(NULL);
 
 
-int cnt=0, adc0=11, adc2=11, adc3=11;
+int cnt=0;
+float adc0=11, adc2=11, adc3=11;
 
 
 #if NODE_SERIAL_NUMBER == 5
@@ -116,8 +117,10 @@ const lmic_pinmap lmic_pins = {
 void getAdc()
 {
     adc0 = analogRead(A0);
-    adc2 = analogRead(A2);
-    adc3 = analogRead(A3);
+    adc2 = analogRead(A2) * 0.125 - 22.0; //analogRead(A2);
+    adc3 = analogRead(A3) / 1023.0 * 100; //analogRead(A3);
+    //convert to decimal values
+
     cnt++;
 }
 
@@ -149,10 +152,10 @@ void prepareMsg()
     getAdc();
     setLcd();
         lpp.reset();
-lpp.addAnalogInput(1, 12); //ID
-lpp.addAnalogInput(2, 11.11); // A0, Mic
-lpp.addAnalogInput(3, -22.22); // A2, Temperature
-lpp.addAnalogInput(4, -101.99); // A3, Proxim
+lpp.addAnalogInput(1, id); //ID
+lpp.addAnalogInput(2, adc0); // A0, Mic
+lpp.addAnalogInput(3, adc2); // A2, Temperature
+lpp.addAnalogInput(4, adc3); // A3, Proxim
 // lpp.addGPS(2, 51.76873, 19.45699, 2);
 // lpp.addAnalogInput(4, 2.721);
 // lpp.addAnalogInput(5, 1.721);
