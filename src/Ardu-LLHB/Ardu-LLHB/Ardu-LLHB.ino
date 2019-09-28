@@ -33,8 +33,15 @@
 #include <hal/hal.h>
 #include <SPI.h>
 
-#include <Adafruit_SSD1306.h>
-Adafruit_SSD1306 display(NULL);
+//#include <Adafruit_SSD1306.h>
+
+
+#include <CayenneLPP.h>
+
+
+
+CayenneLPP lpp(51);
+//Adafruit_SSD1306 display(NULL);
 
 
 int cnt=0, adc0=11, adc2=11, adc3=11;
@@ -64,7 +71,7 @@ void os_getArtEui (u1_t* buf) { }
 void os_getDevEui (u1_t* buf) { }
 void os_getDevKey (u1_t* buf) { }
 
-uint8_t lcd_content [4][30] = {{"CNT="},{"A0"},{"A2"},{"A3"}};
+// uint8_t lcd_content [4][30] = {{"CNT="},{"A0"},{"A2"},{"A3"}};
 
 
 static uint8_t mydata[] = "Hello, world! LLHB";
@@ -81,6 +88,18 @@ const lmic_pinmap lmic_pins = {
     .rst = 5,
     .dio = {2, 3, LMIC_UNUSED_PIN},
 };
+
+
+void prepareMsg()
+{
+        lpp.reset();
+lpp.addAnalogInput(1, 3.721);
+lpp.addGPS(2, 51.76873, 19.45699, 2);
+
+lpp.copy(mydata);
+}
+
+
 
 void onEvent (ev_t ev) {
     Serial.print(os_getTime());
@@ -148,6 +167,9 @@ void onEvent (ev_t ev) {
 }
 
 void do_send(osjob_t* j){
+        Serial.println(F("prepareMsg()..."));
+        //prepareMsg (Convert ADC measurements to LPP message"));
+    prepareMsg();
     // Check if there is not a current TX/RX job running
     if (LMIC.opmode & OP_TXRXPEND) {
         Serial.println(F("OP_TXRXPEND, not sending"));
@@ -161,34 +183,35 @@ void do_send(osjob_t* j){
 
 void set_lcd()
 {
- display.clearDisplay();
+//  display.clearDisplay();
 
-    display.setCursor(0,0);
- display.print("CNT= ");
- display.print(cnt);
-    display.setCursor(0,8);
- display.print(" A0= ");
- display.print(adc0);
-    display.setCursor(0,16);
- display.print(" A1= ");
- display.print(adc2);
-    display.setCursor(0,24);
- display.print(" A2= ");
- display.print(adc3);
- display.display();
- delay(500);
-
+//     display.setCursor(0,0);
+//  display.print("CNT= ");
+//  display.print(cnt);
+//     display.setCursor(0,8);
+//  display.print(" A0= ");
+//  display.print(adc0);
+//     display.setCursor(0,16);
+//  display.print(" A1= ");
+//  display.print(adc2);
+//     display.setCursor(0,24);
+//  display.print(" A2= ");
+//  display.print(adc3);
+//  display.display();
+//  delay(500);
 }
 
-void setup() {
-     display.begin(SSD1306_SWITCHCAPVCC, 0x3C, false);
- delay(500);
- display.clearDisplay();
-  display.setTextColor(WHITE);
- display.setCursor(0,0);
 
- display.println("TEST LINE");
- display.display();
+
+void setup() {
+//      display.begin(SSD1306_SWITCHCAPVCC, 0x3C, false);
+//  delay(500);
+//  display.clearDisplay();
+//   display.setTextColor(WHITE);
+//  display.setCursor(0,0);
+
+//  display.println("TEST LINE");
+//  display.display();
     Serial.begin(115200);
     Serial.println(F("Starting"));
 
