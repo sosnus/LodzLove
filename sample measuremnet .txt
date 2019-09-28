@@ -1,0 +1,40 @@
+MSG(
+	app_id='lodz-lovehackathon-bluebrick', 
+	dev_id='llhb-node-02', 
+	hardware_serial='00B1C4B4652D3873', 
+	port=1, 
+	counter=462, 
+	payload_raw='AQIEsAICBFcDAvdSBALYKUhC', 
+	payload_fields=
+	MSG(
+		a0microphone=11.11, ----------
+		a2temperature=-22.22, ------------
+		a3proximity=-101.99, -----------------
+		id=12
+	),
+	metadata=
+	MSG(
+		time='2019-09-28T15:41:18.022894989Z', 
+		frequency=867.7, 
+		modulation='LORA', 
+		data_rate='SF7BW125', 
+		airtime=71936000, 
+		coding_rate='4/5', 
+		gateways=
+		[
+			MSG
+			(
+				gtw_id='eui-b827ebfffe3b5b2e', 
+				timestamp=690987932,
+				time='2019-09-28T15:41:18.001243Z',-----------
+				channel=6, 
+				rssi=-69, 
+				snr=9.5, 
+				rf_chain=0, 
+				latitude=51.75178, ---------------
+				longitude=19.45067, -------------
+				altitude=17-----------
+			)
+		]
+	)
+)

@@ -34,3 +34,8 @@ ALTER TABLE `Measurements` ADD FOREIGN KEY (`SensorID`) REFERENCES `Sensors` (`S
 ALTER TABLE `Types` ADD FOREIGN KEY (`TypeID`) REFERENCES `Measurements` (`TypeID`);
 
 ALTER TABLE `Sensors` ADD FOREIGN KEY (`SensorID`) REFERENCES `Users` (`SensorID`);
+
+
+ALTER TABLE `MeasurementsReal` ADD FOREIGN KEY (`SensorID`) REFERENCES `Sensors` (`SensorID`);
+
+ALTER TABLE `Types` ADD FOREIGN KEY (`TypeID`) REFERENCES `MeasurementsReal` (`TypeID`);
