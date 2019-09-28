@@ -33,6 +33,12 @@
 #include <hal/hal.h>
 #include <SPI.h>
 
+#include <Adafruit_SSD1306.h>
+Adafruit_SSD1306 display(NULL);
+
+
+int cnt=0, adc0=11, adc2=11, adc3=11;
+
 // LoRaWAN NwkSKey, network session key
 // This is the default Semtech key, which is used by the early prototype TTN
 // network.
@@ -57,6 +63,9 @@ static const u4_t DEVADDR = 0x260118C9;
 void os_getArtEui (u1_t* buf) { }
 void os_getDevEui (u1_t* buf) { }
 void os_getDevKey (u1_t* buf) { }
+
+uint8_t lcd_content [4][30] = {{"CNT="},{"A0"},{"A2"},{"A3"}};
+
 
 static uint8_t mydata[] = "Hello, world! LLHB";
 static osjob_t sendjob;
@@ -150,7 +159,36 @@ void do_send(osjob_t* j){
     // Next TX is scheduled after TX_COMPLETE event.
 }
 
+void set_lcd()
+{
+ display.clearDisplay();
+
+    display.setCursor(0,0);
+ display.print("CNT= ");
+ display.print(cnt);
+    display.setCursor(0,8);
+ display.print(" A0= ");
+ display.print(adc0);
+    display.setCursor(0,16);
+ display.print(" A1= ");
+ display.print(adc2);
+    display.setCursor(0,24);
+ display.print(" A2= ");
+ display.print(adc3);
+ display.display();
+ delay(500);
+
+}
+
 void setup() {
+     display.begin(SSD1306_SWITCHCAPVCC, 0x3C, false);
+ delay(500);
+ display.clearDisplay();
+  display.setTextColor(WHITE);
+ display.setCursor(0,0);
+
+ display.println("TEST LINE");
+ display.display();
     Serial.begin(115200);
     Serial.println(F("Starting"));
 
@@ -224,6 +262,7 @@ void setup() {
 
     // Start job
     do_send(&sendjob);
+    set_lcd();
 }
 
 void loop() {
