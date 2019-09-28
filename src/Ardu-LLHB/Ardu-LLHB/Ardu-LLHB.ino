@@ -89,16 +89,19 @@ const lmic_pinmap lmic_pins = {
     .dio = {2, 3, LMIC_UNUSED_PIN},
 };
 
-
 void prepareMsg()
 {
         lpp.reset();
-lpp.addAnalogInput(1, 3.721);
-lpp.addGPS(2, 51.76873, 19.45699, 2);
+lpp.addAnalogInput(1, 12); //ID
+lpp.addAnalogInput(2, 11.11); // A0, Mic
+lpp.addAnalogInput(3, -22.22); // A2, Temperature
+lpp.addAnalogInput(4, -101.99); // A3, Proxim
+// lpp.addGPS(2, 51.76873, 19.45699, 2);
+// lpp.addAnalogInput(4, 2.721);
+// lpp.addAnalogInput(5, 1.721);
 
 lpp.copy(mydata);
 }
-
 
 
 void onEvent (ev_t ev) {
@@ -180,28 +183,6 @@ void do_send(osjob_t* j){
     }
     // Next TX is scheduled after TX_COMPLETE event.
 }
-
-void set_lcd()
-{
-//  display.clearDisplay();
-
-//     display.setCursor(0,0);
-//  display.print("CNT= ");
-//  display.print(cnt);
-//     display.setCursor(0,8);
-//  display.print(" A0= ");
-//  display.print(adc0);
-//     display.setCursor(0,16);
-//  display.print(" A1= ");
-//  display.print(adc2);
-//     display.setCursor(0,24);
-//  display.print(" A2= ");
-//  display.print(adc3);
-//  display.display();
-//  delay(500);
-}
-
-
 
 void setup() {
 //      display.begin(SSD1306_SWITCHCAPVCC, 0x3C, false);
@@ -285,9 +266,39 @@ void setup() {
 
     // Start job
     do_send(&sendjob);
-    set_lcd();
+ //   set_lcd();
 }
 
 void loop() {
     os_runloop_once();
+}
+
+
+
+function Decoder(bytes, port) {
+    // Decode an uplink message from a buffer
+    // (array) of bytes to an object of fields.
+    var i = 4;
+
+    var id = (bytes[2] << 8) | (bytes[3]);
+    var a0 = (bytes[6] << 8) | (bytes[7]);
+    var a2 = (bytes[10] << 8) | (bytes[11]);
+    var a3 = (bytes[14] << 8) | (bytes[15]);
+    
+    var msb = 0x8000;
+    if (id & msb) id -= msb << 1;
+    if (a0 & msb) a0 -= msb << 1;
+    if (a2 & msb) a2 -= msb << 1;
+    if (a3 & msb) a3 -= msb << 1;
+
+    var decoded = {
+        id: id / 100,
+        a0: a0 / 100,
+        a2: a2 / 100,
+        a3: a3 / 100
+    };
+
+    // if (port === 1) decoded.led = bytes[0];
+
+    return decoded;
 }
