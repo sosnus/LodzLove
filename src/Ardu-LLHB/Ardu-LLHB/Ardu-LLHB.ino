@@ -38,6 +38,14 @@
 
 #include <CayenneLPP.h>
 
+#include <Wire.h>
+#include <hd44780.h>
+#include <hd44780ioClass/hd44780_I2Cexp.h>
+
+
+
+// information about the LCD connection
+hd44780_I2Cexp lcd(0x20, I2Cexp_MCP23008,7,6,5,4,3,2,1,HIGH);
 
 
 CayenneLPP lpp(51);
@@ -45,6 +53,7 @@ CayenneLPP lpp(51);
 
 
 int cnt=0, adc0=11, adc2=11, adc3=11;
+const int id = 4;
 
 // LoRaWAN NwkSKey, network session key
 // This is the default Semtech key, which is used by the early prototype TTN
@@ -89,8 +98,40 @@ const lmic_pinmap lmic_pins = {
     .dio = {2, 3, LMIC_UNUSED_PIN},
 };
 
+
+void getAdc()
+{
+    adc0 = analogRead(A0);
+    adc2 = analogRead(A2);
+    adc3 = analogRead(A3);
+    cnt++;
+}
+
+void setLcd()
+{
+   lcd.clear();
+ lcd.setCursor(0, 0);
+ lcd.print("i=");
+ lcd.print(cnt);
+  lcd.setCursor(7, 0);
+ lcd.print("m=");
+ lcd.print(adc0);
+  lcd.setCursor(0, 1);
+ lcd.print("t=");
+ lcd.print(adc2);
+  lcd.setCursor(7, 1);
+ lcd.print("p=");
+ lcd.print(adc3);
+
+   lcd.setCursor(7, 1);
+ lcd.print(id);
+ 
+}
+
 void prepareMsg()
 {
+    getAdc();
+    setLcd();
         lpp.reset();
 lpp.addAnalogInput(1, 12); //ID
 lpp.addAnalogInput(2, 11.11); // A0, Mic
@@ -185,6 +226,11 @@ void do_send(osjob_t* j){
 }
 
 void setup() {
+    lcd.begin(16, 2);
+ lcd.setCursor(0, 0);
+ lcd.print("START...");
+ // set the cursor t
+
 //      display.begin(SSD1306_SWITCHCAPVCC, 0x3C, false);
 //  delay(500);
 //  display.clearDisplay();
@@ -274,31 +320,3 @@ void loop() {
 }
 
 
-
-function Decoder(bytes, port) {
-    // Decode an uplink message from a buffer
-    // (array) of bytes to an object of fields.
-    var i = 4;
-
-    var id = (bytes[2] << 8) | (bytes[3]);
-    var a0 = (bytes[6] << 8) | (bytes[7]);
-    var a2 = (bytes[10] << 8) | (bytes[11]);
-    var a3 = (bytes[14] << 8) | (bytes[15]);
-    
-    var msb = 0x8000;
-    if (id & msb) id -= msb << 1;
-    if (a0 & msb) a0 -= msb << 1;
-    if (a2 & msb) a2 -= msb << 1;
-    if (a3 & msb) a3 -= msb << 1;
-
-    var decoded = {
-        id: id / 100,
-        a0: a0 / 100,
-        a2: a2 / 100,
-        a3: a3 / 100
-    };
-
-    // if (port === 1) decoded.led = bytes[0];
-
-    return decoded;
-}
