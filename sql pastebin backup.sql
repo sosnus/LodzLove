@@ -1,0 +1,1 @@
+SELECT MAX(`MeasurementDate`),SensorID,MeasurementID FROM `Measurements` GROUP by SensorID
