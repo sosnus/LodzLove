@@ -10,7 +10,8 @@ insert_sql = "insert into MeasurementsReal (MeasurementID, MeasurementDate, Sens
 
 def uplink_callback(msg, client):
   print()
-  print("Received measurement from ", msg.dev_id)
+  czas = datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
+  print("Received measurement from", msg.dev_id,"-",czas)
   #print( msg.payload_fields.a0microphone )
   #print( msg.payload_fields.a2temperature )
   #print( msg.payload_fields.a3proximity )
@@ -19,7 +20,7 @@ def uplink_callback(msg, client):
   x = x.replace("Z", " ")
   x = x.replace("Z", " ")
   y = x.split(".");
-  x=y[0]
+  x = y[0]
   values_temp = (None, x, msg.payload_fields.id, 0, msg.payload_fields.a2temperature) # temp
   values_noice = (None, x, msg.payload_fields.id, 3, msg.payload_fields.a0microphone) # halas
   values_lx = (None, x, msg.payload_fields.id, 2, msg.payload_fields.a3proximity) # temp
@@ -30,13 +31,13 @@ def uplink_callback(msg, client):
   
   mycursor.execute(insert_sql,values_temp)
   mydb.commit()
-  print(mycursor.rowcount, "record inserted.")
+  #print(mycursor.rowcount, "record inserted.")
   mycursor.execute(insert_sql,values_noice)
   mydb.commit()
-  print(mycursor.rowcount, "record inserted.")
+  #print(mycursor.rowcount, "record inserted.")
   mycursor.execute(insert_sql,values_lx)
   mydb.commit()
-  print(mycursor.rowcount, "record inserted.")
+  #print(mycursor.rowcount, "record inserted.")
   
 
 

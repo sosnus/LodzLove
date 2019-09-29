@@ -50,3 +50,17 @@ where
                     GROUP by MeasurementsReal.SensorID
                 ) aa
         )
+		
+SELECT 
+    Sensors.SensorID,
+    Sensors.SensorName,
+    Sensors.SensorDescription,
+    Sensors.Gps_latitude,
+    Sensors.Gps_longitude,
+	MeasurementsReal.MeasurementID,
+    MeasurementsReal.TypeID,
+    MeasurementsReal.Value,
+    MeasurementsReal.MeasurementDate as asd
+FROM 
+	MeasurementsReal
+INNER JOIN Sensors on Sensors.SensorID = MeasurementsReal.SensorID
