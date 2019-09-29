@@ -39,8 +39,4 @@ static const u4_t DEVADDR = 0x03FF0001 ;
 
 # 3. Upload code to your node based on Arduino and open Grafana portal
 
-// TODO: wkleić foto node (pudełko)
 # 4. look at Your data on Grafana and have fun ;)
-
-// TODO: wkleić foto grafany
-![alt text](https://sosnus.github.io/LodzLove/img/dashboardGrafana.jpg "Logo Title Text 1")
