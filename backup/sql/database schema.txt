@@ -16,6 +16,14 @@ TypeID int
 Value  double
 }
 
+Table MeasurementsReal {
+MeasurementID  int
+MeasurementDate  datetime
+SensorID  int
+TypeID int
+Value  double
+}
+
 Table Types {
   TypeID int
   Name varchar
@@ -32,4 +40,7 @@ Table Users {
 
 Ref: "Sensors"."SensorID" < "Measurements"."SensorID"
 Ref: "Types"."TypeID" > "Measurements"."TypeID"
+Ref: "Sensors"."SensorID" < "MeasurementsReal"."SensorID"
+Ref: "Types"."TypeID" > "MeasurementsReal"."TypeID"
 Ref: "Users"."SensorID" < "Sensors"."SensorID"
+
