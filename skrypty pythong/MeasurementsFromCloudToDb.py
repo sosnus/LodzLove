@@ -44,7 +44,7 @@ def uplink_callback(msg, client):
 handler = ttn.HandlerClient(app_id, access_key)
 mydb = mysql.connector.connect(host="db4free.net",user="loveadmin",passwd="adminlove",database="lodzlove")
 print(mydb)
-print("connected")
+print("Working")
 mycursor = mydb.cursor()
 
 # mycursor.execute("SELECT * FROM Users")
