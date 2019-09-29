@@ -35,7 +35,8 @@
 
 //#include <Adafruit_SSD1306.h>
 
-#define NODE_SERIAL_NUMBER  2
+#define NODE_SERIAL_NUMBER  7
+//                  SELECT 2,5,7
 // #define NODE_SERIAL_NUMBER  5
 // #define NODE_SERIAL_NUMBER  2
 
@@ -71,6 +72,13 @@ const int id = 2;
 static const PROGMEM u1_t NWKSKEY[16] = { 0xB6, 0x8E, 0x3A, 0x60, 0x3D, 0x85, 0xB4, 0x4A, 0xA5, 0x0D, 0x62, 0x02, 0xD7, 0xE8, 0xCA, 0x07 };
 static const u1_t PROGMEM APPSKEY[16] = { 0xF3, 0x7B, 0x08, 0x4F, 0xE5, 0x31, 0xCD, 0x51, 0x23, 0x9F, 0xCE, 0x0C, 0xE4, 0x53, 0x55, 0x54 };
 static const u4_t DEVADDR = 0x260118C9;
+#endif
+
+#if NODE_SERIAL_NUMBER == 7
+const int id = 7;
+static const PROGMEM u1_t NWKSKEY[16] = { 0x76, 0x49, 0x5B, 0x2D, 0xE4, 0x1F, 0x22, 0x37, 0xF3, 0x72, 0x74, 0x0E, 0xC4, 0x70, 0xF5, 0xBC };
+static const u1_t PROGMEM APPSKEY[16] = { 0xD4, 0x2D, 0xAA, 0x96, 0xE0, 0x86, 0xF1, 0x72, 0x64, 0x32, 0xDB, 0xD9, 0xA8, 0x12, 0x3C, 0x90 };
+static const u4_t DEVADDR = 0x26011ACD;
 #endif
 
 // LoRaWAN NwkSKey, network session key
@@ -116,12 +124,24 @@ const lmic_pinmap lmic_pins = {
 
 void getAdc()
 {
+    // 0 microphone
+    // 2 - temp
+    // 3 - proxim
     adc0 = analogRead(A0);
     adc2 = analogRead(A2) * 0.125 - 22.0; //analogRead(A2);
     adc3 = analogRead(A3) / 1023.0 * 100; //analogRead(A3);
     //convert to decimal values
 
     cnt++;
+
+    
+#if NODE_SERIAL_NUMBER == 7
+adc0 = random(0, 1400);
+adc0 /= 100;
+adc2 = random(150,300);
+adc2 /= 10;
+adc3 = random(0, 100);
+#endif
 }
 
 void setLcd()
