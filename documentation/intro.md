@@ -25,6 +25,13 @@
 ** Python SDK
 * Grafana
 
+* JSON
+
+### Hardware
+* Arduino
+* RFM95W
+* sensors:
+
 
 ## Funkcjonalność
 
