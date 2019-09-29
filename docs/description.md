@@ -3,8 +3,8 @@
 ## Estetyka1
 
 * Używamy saasów aby nie musieć walczyć z estetyką
-* repo za chwilę będzie poukładane
-* instrukcje jak to wdrożyć
+* poukładane repo, easy to use dla usera/klienta
+* instrukcja jak to wdrożyć
 
 ## Co zrobiliśmy podczas hackathonu
 
@@ -37,14 +37,24 @@
 
 ## Sposób wykonania od strony technicznej
 
+* Node (zasilanie + Arduino + sensors + radio module RFM95)
+* Gateway
+* TTN Cloud
+* Python script (mqtt)=>(MySQL)
+* MySQL
+* Grafana
+
+* Github
+* Github Pages
+
 ### Użyte technologie
 * MySQL
 * Python
 * Git, Github.com
 * Arduino
 * TheThingsNetwork
-** Stack
-** Python SDK
+*   TTN Stack
+*   TTN Python SDK
 * Grafana
 
 * JSON
@@ -54,19 +64,20 @@
 * RFM95W
 * sensors:
 
+## Aktualny stan projektu
+### Już działające
+1. Landing page
+2. Python script
+3. Projekt Arduino
+4. Projekt hardware (gotowy shield ttn-tul-node-v1)
+5. Baza danych
+6. Grafana
 
-## Funkcjonalność
+### Gotowe do wdrożenia
+1. uruchomić skrypt pythona na serwerze produkcyjnym
+2. Opublikować dashboard Grafany online
+3. Automatyzajca przekazywania danych dla nowych użytkowników
 
-## Prezentacja
-
------------------------
-
-## Estetyka
-
-## Funkcjonalność (działanie)
-
-## Potencjał biznesowy
-
-## Prezentaja
-
-## Punktów łącznie
+### Monetyzacja
+* Donejty
+* SPrzedaż open source hardware
