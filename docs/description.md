@@ -1,10 +1,10 @@
 # DESCRIPTION
 
-## Estetyka
+## Estetyka & user friendly
 
 * Używamy saasów aby nie musieć walczyć z estetyką
 * poukładane repo, easy to use dla usera/klienta
-* instrukcja jak to wdrożyć
+* instrukcja jak wdrożyć nowy czujnik
 
 ## Co zrobiliśmy podczas hackathonu
 
