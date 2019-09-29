@@ -1,4 +1,4 @@
-# intro
+# DESCRIPTION
 
 ## Estetyka1
 
