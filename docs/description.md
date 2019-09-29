@@ -1,6 +1,6 @@
 # DESCRIPTION
 
-## Estetyka1
+## Estetyka
 
 * Używamy saasów aby nie musieć walczyć z estetyką
 * poukładane repo, easy to use dla usera/klienta
@@ -8,7 +8,7 @@
 
 ## Co zrobiliśmy podczas hackathonu
 
-## Co mieliśmy wcześniej
+### Co mieliśmy wcześniej
 
 * Gotowy hardware (bez czujników)
 * Kilka testowych node z GPS (przerobiliśmy je z GPS na temperatura + światło)
@@ -18,7 +18,7 @@
 * Działający TTN Gateway
 
 
-## Co zrobiśmy podczas hackthonu
+### Co zrobiśmy podczas hackthonu
 
 * Aplikację w Pythonie odbierającą dane z brokera MQTT i zapisująca pakiety do bazy danych MySQL
 * Pozstawiliśmy bazę danych MySQL na db4free.net i zaprojektowaliśmy nowe tabele
@@ -78,6 +78,9 @@
 2. Opublikować dashboard Grafany online
 3. Automatyzajca przekazywania danych dla nowych użytkowników
 
-### Monetyzacja
+## Monetyzacja
 * Donejty
 * SPrzedaż open source hardware
+
+## Przyszłość
+* Wdrażamy na serwerach PŁ
