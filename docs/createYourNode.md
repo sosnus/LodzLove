@@ -8,7 +8,7 @@ Email template:
 
 ```
 - Name
-- Owner (company or smt)
+- Owner (company or sth)
 - Email 
 - Name of Sensor
 - Password which u will be using to authorize sensor
@@ -32,7 +32,9 @@ static const u4_t DEVADDR = 0x03FF0001 ;
 
 # 2. Download and modify Arduino sample and add credentials.
 
-1. Copy Arduino project
+1. Copy Arduino code from: 
+[Arduino main file](https://sosnus.github.io/LodzLove/arduinoFile.html)
+
 2. Replace variables `id, NWKSKEY, APPSKEY, DEVADDR ` in Arduino code
 
 # 3. Upload code to your node based on Arduino and open Grafana portal
